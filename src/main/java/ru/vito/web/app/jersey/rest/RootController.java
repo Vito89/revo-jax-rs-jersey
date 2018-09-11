@@ -9,7 +9,6 @@ import javax.ws.rs.core.Response;
 
 import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
 
-//@ManagedBean
 @Path("/root")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

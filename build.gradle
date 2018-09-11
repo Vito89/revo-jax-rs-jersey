@@ -1,5 +1,6 @@
 // See: http://www.gradle.org/docs/current/userguide/war_plugin.html
 apply plugin: 'war'
+apply plugin: 'java'
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
@@ -16,4 +17,7 @@ dependencies {
     compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.22.2'
     // Jersey Test Framework — Grizzly2 container
     testCompile 'org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-grizzly2:2.22.2'
+
+    // https://mvnrepository.com/artifact/org.projectlombok/lombok
+    compile group: 'org.projectlombok', name: 'lombok', version: '1.18.2'
 }
