@@ -1,1 +1,1 @@
-revo-jax-rs-jersey
+jax-rs-jersey-application-sample-master
