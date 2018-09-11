@@ -1,0 +1,1 @@
+revo-jax-rs-jersey
