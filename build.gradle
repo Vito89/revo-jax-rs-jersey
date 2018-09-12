@@ -20,4 +20,10 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
     compile group: 'org.projectlombok', name: 'lombok', version: '1.18.2'
+
+    // https://mvnrepository.com/artifact/javax.money/money-api
+    compile group: 'javax.money', name: 'money-api', version: '1.0.3'
+
+    // https://mvnrepository.com/artifact/org.javamoney/moneta
+    compile group: 'org.javamoney', name: 'moneta', version: '1.3'
 }

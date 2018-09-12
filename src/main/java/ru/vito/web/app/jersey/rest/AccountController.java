@@ -1,5 +1,6 @@
 package ru.vito.web.app.jersey.rest;
 
+import org.javamoney.moneta.Money;
 import ru.vito.web.app.jersey.model.dto.request.MoneyTransferRequest;
 import ru.vito.web.app.jersey.model.types.MoneyTransferStatus;
 import ru.vito.web.app.jersey.service.AccountService;
@@ -19,18 +20,13 @@ public class AccountController {
     @Inject
     private AccountService accountService;
 
-//    @Inject
-//    public AccountController(AccountService accountService) {
-//        this.accountService = accountService;
-//    }
-
     @GET
     @Produces(TEXT_PLAIN)
     @Path("getBalance/{accountId}")
     public Response getBalance(@PathParam(value = "accountId") final String accountId) {
-        final Long amount = accountService.getBalance(accountId);
+        final Money amount = accountService.getBalance(accountId);
 
-        return Response.ok(amount).build();
+        return Response.ok(amount.toString()).build();
     }
 
     @POST
@@ -39,6 +35,6 @@ public class AccountController {
     public Response moneyTransfer(final MoneyTransferRequest moneyTransferRequest) {
         final MoneyTransferStatus transferStatus = accountService.moneyTransfer();
 
-        return Response.ok(0L).build();
+        return Response.ok(0L).build(); // TODO
     }
 }
