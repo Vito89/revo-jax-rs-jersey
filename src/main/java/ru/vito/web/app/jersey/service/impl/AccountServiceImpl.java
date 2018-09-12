@@ -2,6 +2,7 @@ package ru.vito.web.app.jersey.service.impl;
 
 import org.javamoney.moneta.Money;
 import ru.vito.web.app.jersey.model.dao.AccountRepository;
+import ru.vito.web.app.jersey.model.dto.request.MoneyTransferRequest;
 import ru.vito.web.app.jersey.model.entity.Operation;
 import ru.vito.web.app.jersey.model.types.MoneyTransferStatus;
 import ru.vito.web.app.jersey.model.types.OperationType;
@@ -34,7 +35,27 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public MoneyTransferStatus moneyTransfer() {
-        return MoneyTransferStatus.SUCCESS;  // TODO
+    public MoneyTransferStatus moneyTransfer(final MoneyTransferRequest moneyTransferRequest) {
+        final Money transfer = Money.of(moneyTransferRequest.getNumber(), moneyTransferRequest.getCurrencyCode());
+        final String accountFrom = moneyTransferRequest.getFromAccountId();
+        final String accountTo = moneyTransferRequest.getToAccountId();
+
+        final Money moneyAccountFrom = getBalance(accountFrom);
+        if (moneyAccountFrom.isLessThan(transfer)) {
+            return MoneyTransferStatus.FAIL;
+        }
+
+        try {
+            doTransfer(accountFrom, accountTo, transfer);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return MoneyTransferStatus.FAIL;
+        }
+
+        return MoneyTransferStatus.SUCCESS;
+    }
+
+    private void doTransfer(final String accountFrom, final String accountTo, final Money transfer) {
+        accountRepository.addOperation(accountFrom, accountTo, transfer);
     }
 }

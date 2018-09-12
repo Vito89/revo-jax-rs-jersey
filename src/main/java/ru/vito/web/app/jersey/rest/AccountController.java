@@ -32,7 +32,7 @@ public class AccountController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("moneyTransfer")
     public Response moneyTransfer(final MoneyTransferRequest moneyTransferRequest) {
-        final MoneyTransferStatus transferStatus = accountService.moneyTransfer();
+        final MoneyTransferStatus transferStatus = accountService.moneyTransfer(moneyTransferRequest);
 
         return Response.ok(transferStatus.name()).build();
     }

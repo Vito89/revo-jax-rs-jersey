@@ -7,6 +7,7 @@ import javax.ws.rs.client.Invocation;
 import javax.ws.rs.core.Response;
 
 import static org.junit.Assert.assertEquals;
+import static ru.vito.web.app.jersey.rest.commons.TestUtils.EXPECTED_STATUS;
 
 public class RootControllerTest extends BaseTest {
 
