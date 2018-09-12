@@ -13,8 +13,6 @@ import javax.ws.rs.core.Response;
 import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
 
 @Path("/")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
 public class AccountController {
 
     @Inject
@@ -30,11 +28,12 @@ public class AccountController {
     }
 
     @POST
-    @Produces(TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     @Path("moneyTransfer")
     public Response moneyTransfer(final MoneyTransferRequest moneyTransferRequest) {
         final MoneyTransferStatus transferStatus = accountService.moneyTransfer();
 
-        return Response.ok(0L).build(); // TODO
+        return Response.ok(transferStatus.name()).build();
     }
 }
