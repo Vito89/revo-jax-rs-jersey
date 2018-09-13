@@ -46,4 +46,9 @@ public class AccountRepositoryImpl implements AccountRepository {
 
 
     }
+
+    @Override
+    public boolean accountNonExist(final String accountId) {
+        return !AbstractRepository.data.containsKey(accountId);
+    }
 }
