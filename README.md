@@ -1,1 +1,1 @@
-jax-rs-jersey-application-sample-master
+jax-rs-jersey-application
