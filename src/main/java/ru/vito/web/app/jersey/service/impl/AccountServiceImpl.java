@@ -3,6 +3,8 @@ package ru.vito.web.app.jersey.service.impl;
 import org.javamoney.moneta.Money;
 import ru.vito.web.app.jersey.model.dao.AccountRepository;
 import ru.vito.web.app.jersey.model.dto.request.MoneyTransferRequest;
+import ru.vito.web.app.jersey.model.dto.response.OperationDto;
+import ru.vito.web.app.jersey.model.dto.response.OperationDTOs;
 import ru.vito.web.app.jersey.model.entity.Operation;
 import ru.vito.web.app.jersey.model.types.MoneyTransferStatus;
 import ru.vito.web.app.jersey.model.types.OperationType;
@@ -11,6 +13,7 @@ import ru.vito.web.app.jersey.service.AccountService;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Singleton
 public class AccountServiceImpl implements AccountService {
@@ -20,6 +23,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Money getBalance(final String accountId) {
+        if (accountRepository.accountNonExist(accountId)) {
+            throw new RuntimeException("account non-existent");
+        }
         final List<Operation> operations = accountRepository.getAllOperations(accountId);
 
         return operations.stream()
@@ -39,6 +45,10 @@ public class AccountServiceImpl implements AccountService {
         final Money transfer = Money.of(moneyTransferRequest.getNumber(), moneyTransferRequest.getCurrencyCode());
         final String accountFrom = moneyTransferRequest.getFromAccountId();
         final String accountTo = moneyTransferRequest.getToAccountId();
+        if (accountRepository.accountNonExist(accountFrom) || accountRepository.accountNonExist(accountTo)) {
+            // log.error event
+            return MoneyTransferStatus.FAIL;
+        }
 
         final Money moneyAccountFrom = getBalance(accountFrom);
         if (moneyAccountFrom.isLessThan(transfer)) {
@@ -53,6 +63,23 @@ public class AccountServiceImpl implements AccountService {
         }
 
         return MoneyTransferStatus.SUCCESS;
+    }
+
+    @Override
+    public OperationDTOs getAllOperation(final String accountId) {
+        return new OperationDTOs(
+                accountRepository.getAllOperations(accountId).stream()
+                        .map(o -> {
+                            final Money oAmount = o.getAmount();
+                            return OperationDto.builder()   // TODO modelMapper http://modelmapper.org/
+                                    .operationType(o.getOperationType())
+                                    .createdDate(o.getCreatedDate().toString())
+                                    .partnerAccountId(o.getPartnerAccountId())
+                                    .amount(oAmount.getNumberStripped())
+                                    .currencyCode(oAmount.getCurrency().getCurrencyCode())
+
+                                    .build();
+                        }).collect(Collectors.toList()));
     }
 
     private void doTransfer(final String accountFrom, final String accountTo, final Money transfer) {

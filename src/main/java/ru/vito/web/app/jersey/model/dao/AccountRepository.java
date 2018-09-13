@@ -11,4 +11,6 @@ public interface AccountRepository {
     List<Operation> getAllOperations(final String accountId);
 
     void addOperation(String accountFrom, String accountTo, Money transfer);
+
+    boolean accountNonExist(final String accountId);
 }
