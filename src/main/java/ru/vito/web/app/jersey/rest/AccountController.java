@@ -2,7 +2,7 @@ package ru.vito.web.app.jersey.rest;
 
 import org.javamoney.moneta.Money;
 import ru.vito.web.app.jersey.model.dto.request.MoneyTransferRequest;
-import ru.vito.web.app.jersey.model.dto.response.OperationDTOs;
+import ru.vito.web.app.jersey.model.dto.response.OperationsDto;
 import ru.vito.web.app.jersey.model.types.MoneyTransferStatus;
 import ru.vito.web.app.jersey.service.AccountService;
 
@@ -43,8 +43,8 @@ public class AccountController {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("getAllOperation/{accountId}")
     public Response getAllOperation(@NotNull @PathParam(value = "accountId") final String accountId) {
-        final OperationDTOs operationDtos = accountService.getAllOperation(accountId);
+        final OperationsDto operationsDto = accountService.getAllOperation(accountId);
 
-        return Response.ok(operationDtos).build();
+        return Response.ok(operationsDto).build();
     }
 }

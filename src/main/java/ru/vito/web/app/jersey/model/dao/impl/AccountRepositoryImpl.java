@@ -19,7 +19,7 @@ public class AccountRepositoryImpl implements AccountRepository {
         return Optional.ofNullable(AbstractRepository.data.get(accountId)).orElse(Collections.emptyList());
     }
 
-  //@Transactional
+    // Transaction required with correct isolation level
     @Override
     public void addOperation(final String accountFrom, final String accountTo, final Money transfer) {
         List<Operation> operations = AbstractRepository.data.get(accountFrom);

@@ -1,5 +1,6 @@
 apply plugin: 'war'
 apply plugin: 'java'
+apply plugin: 'checkstyle'
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
@@ -28,4 +29,9 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.glassfish.jersey.media/jersey-media-json-jackson
     compile group: 'org.glassfish.jersey.media', name: 'jersey-media-json-jackson', version: '2.25.1'
+}
+
+checkstyle {
+    toolVersion = "8.17"
+    configDir = file("$rootDir/checkstyle")
 }

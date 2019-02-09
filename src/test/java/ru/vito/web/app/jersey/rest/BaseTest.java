@@ -18,9 +18,7 @@ public abstract class BaseTest extends JerseyTest {
 
     @Override
     protected Application configure() {
-        final JerseyResourceConfiguration jerseyResourceConfiguration = new JerseyResourceConfiguration();
-
-        return jerseyResourceConfiguration;
+        return new JerseyResourceConfiguration();
     }
 
     @Before

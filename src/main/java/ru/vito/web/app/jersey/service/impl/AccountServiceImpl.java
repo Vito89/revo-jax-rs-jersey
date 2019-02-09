@@ -4,7 +4,7 @@ import org.javamoney.moneta.Money;
 import ru.vito.web.app.jersey.model.dao.AccountRepository;
 import ru.vito.web.app.jersey.model.dto.request.MoneyTransferRequest;
 import ru.vito.web.app.jersey.model.dto.response.OperationDto;
-import ru.vito.web.app.jersey.model.dto.response.OperationDTOs;
+import ru.vito.web.app.jersey.model.dto.response.OperationsDto;
 import ru.vito.web.app.jersey.model.entity.Operation;
 import ru.vito.web.app.jersey.model.types.MoneyTransferStatus;
 import ru.vito.web.app.jersey.model.types.OperationType;
@@ -29,8 +29,8 @@ public class AccountServiceImpl implements AccountService {
         final List<Operation> operations = accountRepository.getAllOperations(accountId);
 
         return operations.stream()
-                .filter(operation -> (OperationType.CREDIT.equals(operation.getOperationType()) ||
-                        OperationType.DEBIT.equals(operation.getOperationType())))
+                .filter(operation -> (OperationType.CREDIT.equals(operation.getOperationType())
+                        || OperationType.DEBIT.equals(operation.getOperationType())))
                 .map(o -> {
                     if (OperationType.DEBIT.equals(o.getOperationType())) {
                         return o.getAmount().negate();
@@ -66,8 +66,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public OperationDTOs getAllOperation(final String accountId) {
-        return new OperationDTOs(
+    public OperationsDto getAllOperation(final String accountId) {
+        return new OperationsDto(
                 accountRepository.getAllOperations(accountId).stream()
                         .map(o -> {
                             final Money oAmount = o.getAmount();

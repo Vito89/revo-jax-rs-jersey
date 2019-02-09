@@ -6,10 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class AbstractRepository { // The implementation is hidden, how it will be stored and the specifics can be left
+// The implementation is hidden, how it will be stored and the specifics can be left
+public abstract class AbstractRepository {
 
-    /**
-     * Map of pairs <partnerAccountId <-> ListOfOperations>
-     */
+    // Map of pairs partnerAccountId with ListOfOperations
     public static final Map<String, List<Operation>> data = new HashMap<>();
 }
