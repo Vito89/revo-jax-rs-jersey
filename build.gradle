@@ -1,4 +1,3 @@
-// See: http://www.gradle.org/docs/current/userguide/war_plugin.html
 apply plugin: 'war'
 apply plugin: 'java'
 
@@ -19,7 +18,7 @@ dependencies {
     testCompile 'org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-grizzly2:2.25.1'
 
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
-    compile group: 'org.projectlombok', name: 'lombok', version: '1.18.2'
+    compile group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
 
     // https://mvnrepository.com/artifact/javax.money/money-api
     compile group: 'javax.money', name: 'money-api', version: '1.0.3'
