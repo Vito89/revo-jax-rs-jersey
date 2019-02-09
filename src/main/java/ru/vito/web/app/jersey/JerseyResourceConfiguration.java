@@ -14,7 +14,6 @@ import javax.ws.rs.ApplicationPath;
 public class JerseyResourceConfiguration extends ResourceConfig {
 
     private static final String RESOURCES_PACKAGE_PREFIX = ".rest";
-//    private static final String SERVICES_PACKAGE_PREFIX = ".service.impl";
 
     public JerseyResourceConfiguration() {
         final AbstractBinder component = new AbstractBinder() {
@@ -26,6 +25,5 @@ public class JerseyResourceConfiguration extends ResourceConfig {
         };
         register(component);
         packages(this.getClass().getPackage().getName() + RESOURCES_PACKAGE_PREFIX);
-//        packages(this.getClass().getPackage().getName() + SERVICES_PACKAGE_PREFIX);
     }
 }

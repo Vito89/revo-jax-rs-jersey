@@ -3,7 +3,7 @@ package ru.vito.web.app.jersey.rest.rest;
 import org.javamoney.moneta.Money;
 import org.junit.Test;
 import ru.vito.web.app.jersey.model.dto.request.MoneyTransferRequest;
-import ru.vito.web.app.jersey.model.dto.response.OperationDTOs;
+import ru.vito.web.app.jersey.model.dto.response.OperationsDto;
 import ru.vito.web.app.jersey.model.types.MoneyTransferStatus;
 import ru.vito.web.app.jersey.model.types.OperationType;
 import ru.vito.web.app.jersey.rest.BaseTest;
@@ -103,9 +103,9 @@ public class AccountControllerTest extends BaseTest {
         final Response response = request.accept(MediaType.APPLICATION_JSON).get();
         assertEquals(EXPECTED_STATUS.getStatusCode(), response.getStatus());
 
-        final OperationDTOs operationDtos = response.readEntity(OperationDTOs.class);
+        final OperationsDto operationsDto = response.readEntity(OperationsDto.class);
         assertEquals(balanceByMethod.getNumber().longValueExact(),
-                operationDtos.getOperations().stream()
+                operationsDto.getOperations().stream()
                         .map(o -> {
                             if (OperationType.DEBIT.equals(o.getOperationType())) {
                                 return o.getAmount().negate();
